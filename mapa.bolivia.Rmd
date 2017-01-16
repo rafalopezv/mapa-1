@@ -1,0 +1,30 @@
+---
+title: "Hola amiguis 2025"
+output: html_document
+---
+
+```{r}, include = FALSE}
+setwd("/Users/rafalopezv/Desktop/mapa 1/")
+library(leaflet)
+library(rgdal)
+library(rio)
+
+a <- import("MUNICIPIOS_339.dbf")
+your.map <- leaflet() %>% addTiles()
+your.map # print the map
+
+states <- readOGR(dsn = "MUNICIPIOS_339.shp",
+                  layer = "MUNICIPIOS_339", verbose = FALSE)
+
+mapa <- leaflet(states) %>% addPolygons(stroke = FALSE, 
+                                  fillOpacity = 0.9, 
+                                  smoothFactor = 0.1, color = ~colorFactor("YlOrRd", states$GANO)(GANO))
+your.map <- mapa
+your.map
+# informaci??n a cerca de leaflet para R aqui: https://rstudio.github.io/leaflet/shapes.html
+```
+
+```{r, echo = FALSE}  
+your.map
+```
+
